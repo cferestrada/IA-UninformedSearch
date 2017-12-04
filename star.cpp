@@ -162,7 +162,7 @@ int main(int arg, char** argv){
 					movement = make_pair(i, j);
 					if(move(&childNode, thisNode, movement, heigth) == 1){
 						//childNode->h = heuristic(childNode->state, gs);
-						childNode->hCost = childNode->gCost*2;
+						childNode->h = childNode->g*2;
 						itVisited = visited.find(childNode->state);
 						itLast = isLast.find(childNode->state);
 						if(itVisited == visited.end()){

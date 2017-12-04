@@ -63,6 +63,46 @@ int move(struct node **child, struct node *parent, pair<int,int> movement, int z
 	return 0;
 }
 
+int heuristic(vector<stack <char> > thisnode, vector<stack <char> > goal){
+	int i, dif, aux = 0;
+
+	for(i = 0; i < goal.size(); i++){
+		while( goal[i].size() > 0 && thisnode[i].size() > 0){
+			if(goal[i].top() != 'X'){
+				dif = thisnode[i].size() - goal[i].size();
+				if( dif > 0 ){
+					while(dif > 0){
+						thisnode[i].pop();
+						aux++;
+						dif--;
+					}
+				}else if( dif < 0 ){
+					while(dif < 0){
+						goal[i].pop();
+						aux++;
+						dif++;
+					}
+				}
+
+				if(thisnode[i].top() != goal[i].top()){
+					aux++;
+				}
+
+				thisnode[i].pop();
+				goal[i].pop();
+
+			}else{
+				goal[i].pop();
+				do{
+					thisnode[i].pop();
+				}while(thisnode[i].size() > 0);
+
+			}
+		}
+	}
+	return aux;
+}
+
 int main(int arg, char** argv){
 
 	int  heigth;
